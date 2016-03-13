@@ -1,0 +1,154 @@
+.liveboxScreen {
+	position: absolute;
+	display: none;
+	left: 0;
+	top: 0;
+	width: 100%;
+}
+
+.liveboxOverlay {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+}
+
+.liveboxFrame {
+	display: none;
+	position: absolute;
+	background-color: white;
+	overflow: hidden;
+	max-height: 95%;
+	box-shadow: 0 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.liveboxFrame .liveboxHeader {
+	background-color: #ededed;
+	overflow: hidden;
+}
+
+.liveboxFrame .liveboxHeaderCont {
+	/*...*/
+}
+
+.liveboxContentNoScroll {
+	overflow: hidden;
+}
+
+.liveboxFrame .liveboxHeaderContStyle {
+	
+	padding-left: 10px;
+	padding-right: 10px;
+	
+	display: table-cell;
+	vertical-align: middle;
+
+	color: #b5b5b5;
+	font-family: "Arial Black", Gadget, sans-serif;
+	font-weight: bold;
+
+	padding-top: 3px;
+
+	font-size: 16px;
+
+	line-height: 32px;
+
+	/*text-shadow:#fff 0px 1px 0, #838383 0 -1px 0;*/
+	text-shadow: 0 1px 0 #FFFFFF;
+}
+
+.liveboxNoScroll {
+	position: fixed;
+	width: 100%;
+}
+
+.liveboxNoScrollX {
+	overflow-x: scroll;
+}
+
+.liveboxNoScrollY {
+	overflow-y: scroll;
+}
+
+.liveboxCloseBtn {
+	width: 25px;
+	height: 25px;
+	cursor: pointer;
+	background-image: url("img/close.png");
+}
+
+.liveboxCloseBtnLeft {
+	float: left;
+	margin-top: 5px;
+	margin-left: 5px;
+}
+
+.liveboxCloseBtnRight {
+	float: right;
+	margin-top: 5px;
+	margin-right: 5px;
+}
+
+.liveboxCloseBtnNone {
+	display: none;
+}
+
+.liveboxOuterCloseBtnHolder {
+	position: absolute;
+	top: 0;
+	height: 80px;
+	width: 100%;
+}
+
+.liveboxOuterCloseBtn {
+	background-image: url("img/closeOut.png");
+	float: right;
+	cursor: pointer;
+	width: 80px;
+	height: 80px;
+	opacity: .4;
+}
+
+.liveboxArrows {
+	position: absolute;
+	top: 0;
+	height: 80px;
+	width: 100%;
+}
+
+.liveboxArrowLeft, .liveboxArrowRight {
+	cursor: pointer;
+	width: 80px;
+	height: 80px;
+	opacity: .4;
+}
+
+.liveboxArrowLeft:hover, .liveboxArrowRight:hover, .liveboxOuterCloseBtn:hover {
+	opacity: .8;
+}
+
+.liveboxArrowLeft {
+	background-image: url("img/arrowLeft.png");
+	float: left;
+}
+
+.liveboxArrowRight {
+	background-image: url("img/arrowRight.png");
+	float: right;
+}
+
+.liveboxSpinner {
+	width: 100%;
+	height: 50px;
+	background: url("img/loader.gif") no-repeat 9px 9px;
+}
+
+.liveboxRoundCorners {
+	-moz-border-radius: 1px;
+	-webkit-border-radius: 1px;
+	-khtml-border-radius: 1px;
+	border-radius: 1px;
+}
