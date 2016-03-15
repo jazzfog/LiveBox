@@ -13,4 +13,4 @@ Be aware of *beta* version
 - Highly customizable look
 - Ability to preserve event handlers when you use hidden element on page as source for LiveBox html content
 
-Documentation and examples on the go
+Documentation and examples is on the go
