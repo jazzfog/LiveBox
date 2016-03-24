@@ -870,7 +870,10 @@
 			var el = $(settings.content);
 
 			// Wrap content with placeholder so we will be able to return it back
+			// lbph - LiveBox Place Holder
+			// lbcm - LiveBox Content Marker
 			var wrappingEl = $('<div>').css('display', 'none').attr('lbph', ident);
+			el.attr('lbcm', ident);
 			el.wrap(wrappingEl);
 
 			// Take content out of its place and put in LiveBox content box
@@ -1230,9 +1233,9 @@
 				
 				// Returning detached content back on its place
 
-				var elPlaceholder = $('[lbph='+ident+']');
-				//TODO Replace children request with specific element ident
-				var contentEl = getBoxContent().children();
+				var elPlaceholder = $('[lbph=' + ident + ']');
+				var contentEl = getBoxContent().find('[lbcm=' + ident + ']');
+				contentEl.removeAttr('lbcm');
 
 				elPlaceholder.append(contentEl.detach());
 				contentEl.unwrap();
