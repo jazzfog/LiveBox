@@ -150,9 +150,6 @@
 			closeButton: 'right', // 'left', 'right', 'out', 'none'
 			closeOverlay: true,
 
-			detach: false,
-			detachRevert: '',
-
 			/**
 			 * Allow to close lightbox by pressing Esc key
 			 */
@@ -869,13 +866,15 @@
 		
 		function contHandlerSelector() {
 
+			// Find target elements on page
 			var el = $(settings.content);
 
-			if (options.detach) {
-				placeContent(el.detach());
-			} else {
-				placeContent(el.html());
-			}
+			// Wrap content with placeholder so we will be able to return it back
+			var wrappingEl = $('<div>').css('display', 'none').attr('lbph', ident);
+			el.wrap(wrappingEl);
+
+			// Take content out of its place and put in LiveBox content box
+			placeContent(el.detach());
 
 			animateOpening('fadein');
 		}
@@ -1229,12 +1228,14 @@
 			
 			var doClosingActions = function () {
 				
-				if (options.detach && options.detachRevert) {
-					// Returning detached content back on its place
-					$(options.detachRevert).append(
-						getBoxContent().children().detach()
-					);
-				}
+				// Returning detached content back on its place
+
+				var elPlaceholder = $('[lbph='+ident+']');
+				//TODO Replace children request with specific element ident
+				var contentEl = getBoxContent().children();
+
+				elPlaceholder.append(contentEl.detach());
+				contentEl.unwrap();
 
 				removeElemtnts(true);
 
