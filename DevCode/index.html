@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>
+			Example
+		</title>
+
+		<script type="text/javascript" src="./misc/jquery.js"></script>
+		<script type="text/javascript" src="../livebox.js"></script>
+		<link rel="stylesheet" href="../livebox.css"/>
+
+	</head>
+	<body>
+
+		<script type="text/javascript">
+
+			$(function () {
+
+				$.fn.livebox({
+					content: '#lbx'
+				});
+
+			});
+
+//			var wrap = function () {
+//				var el = $('<div class="wrapperZ">').css('display', 'none');
+//				$('#lbx').wrap(el);
+//			};
+//
+//			var unwx = function () {
+//				$('#lbx').unwrap();
+//			};
+
+		</script>
+
+		<ul>
+			<li>
+				Element one
+			</li>
+			<li id="lbx">
+				Element two
+			</li>
+			<li>
+				Element three
+			</li>
+		</ul>
+
+	</body>
+</html>
