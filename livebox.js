@@ -451,7 +451,8 @@
 			var boxOverlay = getBoxOverlay();
 			var boxFrame = getBoxFrame();
 			var boxContent = getBoxContent();
-			
+			var boxContentOuter = getBoxContentOuter();
+
 			// Set lightbox header text
 			if (settings.headerContent.length) {
 				if (settings.headerNoHtml) {
@@ -478,7 +479,7 @@
 			
 			posCloseButton();
 
-			getBoxContentOuter().css({
+			boxContentOuter.css({
 				width: settings.width,
 				height: settings.height,
 				minHeight: settings.minHeight,
@@ -524,8 +525,10 @@
 
 			if (settings.contentScroll) {
 				boxContent.removeClass('liveboxContentNoScroll');
+				boxContentOuter.removeClass('liveboxContentNoScroll');
 			} else {
 				boxContent.addClass('liveboxContentNoScroll');
+				boxContentOuter.addClass('liveboxContentNoScroll');
 			}
 		}
 		
