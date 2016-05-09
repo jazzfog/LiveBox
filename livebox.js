@@ -29,7 +29,7 @@
 
 		/**
 		 * This variable contains common settings for chained elements
-		 * @type {}
+		 * @type {{}}
 		 */
 		var chainCommonSettings = {};
 
@@ -130,6 +130,11 @@
 		};
 
 		/**
+		 * @type {{}}
+		 */
+		var contentStorage = {};
+
+		/**
 		 * Default LiveBox settings
 		 * @type {{}}
 		 */
@@ -211,7 +216,7 @@
 		
 		/**
 		 * Containe system events
-		 * @type {}
+		 * @type {{}}
 		 */
 		var internalEvents = {
 			
@@ -872,15 +877,18 @@
 			// Find target elements on page
 			var el = $(settings.content);
 
-			// Wrap content with placeholder so we will be able to return it back
+			// Wrap content with placeholder so we will be able to return it back on its original place when livebox is closed
 			// lbph - LiveBox Place Holder
-			// lbcm - LiveBox Content Marker
 			var wrappingEl = $('<div>').css('display', 'none').attr('lbph', ident);
-			el.attr('lbcm', ident);
 			el.wrap(wrappingEl);
 
 			// Take content out of its place and put in LiveBox content box
-			placeContent(el.detach());
+			var detached = el.detach();
+
+			contentStorage[ident] = detached;
+
+			var clone = detached.clone(true);
+			placeContent(clone);
 
 			animateOpening('fadein');
 		}
@@ -1237,10 +1245,10 @@
 				// Returning detached content back on its place
 
 				var elPlaceholder = $('[lbph=' + ident + ']');
-				var contentEl = getBoxContent().find('[lbcm=' + ident + ']');
-				contentEl.removeAttr('lbcm');
+				var contentEl = contentStorage[ident];
+				delete contentStorage[ident];
 
-				elPlaceholder.append(contentEl.detach());
+				elPlaceholder.append(contentEl);
 				contentEl.unwrap();
 
 				removeElemtnts(true);
