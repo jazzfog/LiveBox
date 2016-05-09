@@ -2033,9 +2033,15 @@
 jQuery(function () {
 
 	var $ = jQuery;
-	
-	$(document).on('click', '.liveBox, .livebox', onElementClick);
-	
+
+	var linksSelector = '.liveBox, .livebox';
+
+	if (typeof $(document).on === 'function') {
+		$(document).on('click', linksSelector, onElementClick);
+	} else {
+		$(linksSelector).live('click', onElementClick);
+	}
+
 	function onElementClick() {
 
 		var el = $(this);
