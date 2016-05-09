@@ -1242,14 +1242,19 @@
 			
 			var doClosingActions = function () {
 				
-				// Returning detached content back on its place
+				if (settings.type === 'selector') {
 
-				var elPlaceholder = $('[lbph=' + ident + ']');
-				var contentEl = contentStorage[ident];
-				delete contentStorage[ident];
+					// Returning detached content back on its place
 
-				elPlaceholder.append(contentEl);
-				contentEl.unwrap();
+					var elPlaceholder = $('[lbph=' + ident + ']');
+					var contentEl = contentStorage[ident];
+					delete contentStorage[ident];
+
+					if (contentEl) {
+						elPlaceholder.append(contentEl);
+						contentEl.unwrap();
+					}
+				}
 
 				removeElemtnts(true);
 
