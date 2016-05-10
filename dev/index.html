@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en-us">
+	<head>
+		<title>
+			LiveBox
+		</title>
+
+		<script type="text/javascript" src="../resources/jquery.js"></script>
+		<script type="text/javascript" src="../src/livebox.js"></script>
+		<link rel="stylesheet" href="../src/livebox.css"/>
+
+		<script type="text/javascript">
+			$(function () {
+
+				var handler1 = $.fn.livebox({
+					type: 'html',
+					content: 'First'
+				});
+
+				setTimeout(function () {
+					handler1.resize(800, 500);
+				}, 1500);
+				setTimeout(function () {
+					handler1.hide();
+				}, 4000);
+
+
+				var handler2 = $.fn.livebox({
+					type: 'html',
+					content: 'Second'
+				});
+
+				setTimeout(function () {
+					handler2.resize(550, 350);
+				}, 3000);
+				setTimeout(function () {
+					handler2.hide();
+				}, 6000);
+
+			})
+		</script>
+		
+	</head>
+	<body>
+		Hey hey
+	</body>
+</html>
