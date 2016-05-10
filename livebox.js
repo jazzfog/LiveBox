@@ -2034,7 +2034,10 @@
 		
 		//----------------------------------------------------------------------------
 		
-		return this;
+		return {
+			resize: resize,
+			hide: hide
+		};
     };
 
 	//TODO Do it in right way, this is temporary solution
