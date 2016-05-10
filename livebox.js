@@ -192,7 +192,14 @@
 			// Allow lightbox drag&drop (move) or not
 			draggable: true,
 
-			onOpen: null
+			onOpen: null,
+
+			/**
+			 * For type `selector`:
+			 * If true - dom elements will not be cloned, so changes to DOM elements will be preserved
+			 * (including filled out form fields)
+			 */
+			preserveChanges: false
 		};
 
 		/**
@@ -887,7 +894,7 @@
 
 			contentStorage[ident] = detached;
 
-			var clone = detached.clone(true);
+			var clone = settings.preserveChanges ? detached : detached.clone(true);
 			placeContent(clone);
 
 			animateOpening('fadein');
