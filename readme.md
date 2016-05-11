@@ -17,7 +17,7 @@ Be aware of *beta* version
 
     bower install livebox
     
-If you do not use `bower` you can (download files)[https://github.com/jazzfog/LiveBox/archive/master.zip] from this repository and include it in your project.
+If you do not use `bower` you can [download files](https://github.com/jazzfog/LiveBox/archive/master.zip) from this repository and include it in your project.
 
 #### Some examples
 
