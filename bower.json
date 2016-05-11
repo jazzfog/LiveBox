@@ -1,0 +1,21 @@
+{
+  "name": "LiveBox",
+  "version": "0.1.1",
+  "homepage": "https://github.com/jazzfog/livebox",
+  "authors": [
+    "fogdeveloper@gmail.com"
+  ],
+  "description": "jQuery Lightbox Plugin",
+  "main": "src/livebox.js",
+  "keywords": [
+    "lightbox", "jQuery plugin", "Plugin"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "test",
+    "tests",
+	"dev",
+    "resources"
+  ]
+}
