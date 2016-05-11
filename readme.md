@@ -13,6 +13,12 @@ Be aware of *beta* version
 - Highly customizable look
 - Ability to preserve event handlers when you use hidden element on page as source for LiveBox html content
 
+#### Install
+
+    bower install livebox
+    
+If you do not use `bower` you can (download files)[https://github.com/jazzfog/LiveBox/archive/master.zip] from this repository and include it in your project.
+
 #### Some examples
 
 Simple HTML
