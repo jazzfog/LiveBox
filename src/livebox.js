@@ -364,7 +364,8 @@
 			getBoxClose().bind('click', hide);
 			getBoxCloseOut().bind('click', hide);
 			getBoxOverlay().bind('click', overlayClick);
-			
+			getBoxArrows().bind('click', overlayClick);
+
 			// Window resize
 			
 			$(window).bind('resize.livebox_' + ident, function () {
