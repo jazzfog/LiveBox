@@ -1041,8 +1041,11 @@
 		
 		function posArrows() {
 			var box = getBoxArrows();
-			var top = ($(window).height() / 2) - (box.height() / 2);
-			box.css('top', top);
+			box.css('top', getCoordCenterY() - (box.height() / 2));
+		}
+
+		function getCoordCenterY() {
+			return getScrollPos() + ($(window).height() / 2);
 		}
 		
 		function posCloseButton() {
