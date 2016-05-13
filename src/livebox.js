@@ -77,6 +77,7 @@
 		 */
 		var imgRealHeight = 0;
 
+		//noinspection JSValidateJSDoc
 		/**
 		 * Ajax object used in lightbox
 		 * @type {jqXHR|null}
@@ -272,7 +273,7 @@
 				});
 				
 			} else if (!el.length && !el.selector.length) {
-				
+
 				// For case of direct usage: $.fn.livebox({...});
 				// including usage `class="livebox"`, because it eventually calls $.fn.livebox({...})
 				handleItems(options, chainOptions);
@@ -299,8 +300,8 @@
 			if (!$.isArray(items)) {
 				items = [items];
 			}
+
 			chainedItems = items;
-			
 			chainedItemsIndex = 0;
 			
 			$.each(items, function (index, item) {
@@ -590,7 +591,10 @@
 			//-------------------------------------------------------------
 
 			if (settings.type == 'auto') {
-				settings.type = detectType(settingsRaw.content);
+
+				var contentLine = (isChain() && typeof settingsRaw[chainedItemsIndex] === 'object') ? settingsRaw[chainedItemsIndex].content : settingsRaw.content;
+				settings.type = detectType(contentLine);
+
 				if (settings.type === false) {
 					settings.type = 'html';
 					settings.content = liveBoxErrorMsg.replace('%content%', escape(settings.content));
@@ -2096,7 +2100,7 @@ jQuery(function () {
 				if (chainEl.data('marker') === marker) {
 					item.active = true;
 				}
-				
+
 				options.push(item);
 			});
 			
@@ -2104,7 +2108,7 @@ jQuery(function () {
 		} else {
 			options = extractOptions(el);
 		}
-		
+
 		$.fn.livebox(options);
 		
 		return false;
