@@ -1223,8 +1223,15 @@
 			
 		}
 		
-		function overlayClick() {
-			
+		function overlayClick(e) {
+
+			var clickTarget = $(e.target);
+			var noReact = clickTarget.hasClass('liveboxCloseNoReact');
+
+			if (noReact) {
+				return;
+			}
+
 			if (event('overlayclick') === false) {
 				return;				
 			}
@@ -2158,8 +2165,8 @@ var liveBoxHtml = " \
 			<div class='liveboxOuterCloseBtn'></div>\
 		</div> \
 		<div class='liveboxArrows'>\
-			<div class='liveboxArrowLeft'></div> \
-			<div class='liveboxArrowRight'></div> \
+			<div class='liveboxArrow liveboxArrowLeft liveboxCloseNoReact'></div> \
+			<div class='liveboxArrow liveboxArrowRight liveboxCloseNoReact'></div> \
 		</div> \
 		<div class='liveboxScreen'> \
 			<div class='liveboxFrame'> \
