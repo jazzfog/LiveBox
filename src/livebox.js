@@ -27,6 +27,8 @@
 		 */
 		var eventsHolder = {};
 
+		var isChainFlag = false;
+
 		/**
 		 * This variable contains common settings for chained elements
 		 * @type {{}}
@@ -297,7 +299,10 @@
 			
 			//----------------------------------------------------------
 			
-			if (!$.isArray(items)) {
+			if ($.isArray(items)) {
+				isChainFlag = true;
+			} else {
+				isChainFlag = false;
 				items = [items];
 			}
 
@@ -349,7 +354,7 @@
 			
 			// Chaining arrows
 
-			getBoxArrows().toggle(isChain());
+			getBoxArrows().toggle(isChainMultiple());
 			
 			getBoxArrowRight().bind('click', function () {
 				applyItemByIndex(getNextItemIndex());
@@ -1450,7 +1455,7 @@
 
 			var totalWidth = getExtraWidth() + width;
 			var totalHeight = getExtraHeight() + height;
-			var arrowsExtraPadding = isChain() ? 100 : 0;
+			var arrowsExtraPadding = isChainMultiple() ? 100 : 0;
 			
 			//-------------------------------------------------
 			
@@ -1660,7 +1665,7 @@
 		
 		function preloadNextAndPrevImages() {
 			
-			if (!isChain()) {
+			if (!isChainMultiple()) {
 				return;
 			}
 			
@@ -1702,7 +1707,7 @@
 		
 		function getNextItemIndex() {
 			
-			if (!isChain()) {
+			if (!isChainMultiple()) {
 				return chainedItemsIndex;
 			}
 			
@@ -1716,7 +1721,7 @@
 		
 		function getPrevItemIndex() {
 			
-			if (!isChain()) {
+			if (!isChainMultiple()) {
 				return chainedItemsIndex;
 			}
 			
@@ -1738,9 +1743,17 @@
 		}
 		
 		function isChain() {
-			return chainedItems.length > 1;
+			return isChainFlag;
 		}
-		
+
+		/**
+		 * isChain and number of elements more than one
+		 * @returns {boolean}
+		 */
+		function isChainMultiple() {
+			return isChain() && chainedItems.length > 1;
+		}
+
 		//----------------------------------------------------------------------------
 		
 		function onBrowserWindowResize() {
@@ -1777,7 +1790,7 @@
 				}
 			}
 			
-			if (isChain()) {
+			if (isChainMultiple()) {
 				if (event.keyCode === 37) {
 					applyItemByIndex(getPrevItemIndex());
 				} else if (event.keyCode === 39) {
