@@ -183,6 +183,11 @@
 			content: '',
 
 			noExtraUi: false,
+
+			// For type `selector`
+			// If content element is hidden (display=none) it will be shown
+			// and reverted back to `none` when window is hidden
+			autoShowContentBlock: true,
 			
 			contentScroll: true,
 
@@ -910,7 +915,7 @@
 			};
 
 			// Auto-show hidden content
-			if (dEl.display === 'none') {
+			if (dEl.display === 'none' && settings.autoShowContentBlock) {
 				dEl.el.show();
 			}
 
