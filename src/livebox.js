@@ -903,7 +903,16 @@
 			// Take content out of its place and put in LiveBox content box
 			var detached = el.detach();
 
-			contentStorage[ident] = detached;
+			// Saving original content element and its display mode
+			var dEl = contentStorage[ident] = {
+				el: detached,
+				display: detached.css('display')
+			};
+
+			// Auto-show hidden content
+			if (dEl.display === 'none') {
+				dEl.el.show();
+			}
 
 			var clone = settings.preserveChanges ? detached : detached.clone(true);
 			placeContent(clone);
@@ -1275,11 +1284,21 @@
 					// Returning detached content back on its place
 
 					var elPlaceholder = $('[lbph=' + ident + ']');
-					var contentEl = contentStorage[ident];
+
+					var contentObj = contentStorage[ident];
+					var contentEl = (contentObj && contentObj.el) ? contentObj.el : null;
+
 					delete contentStorage[ident];
 
 					if (contentEl) {
+
+						//Reverting original display mode
+						contentEl.css('display', contentObj.display);
+
+						// Returning content element
 						elPlaceholder.append(contentEl);
+
+						// Removing placeholding wrapper
 						contentEl.unwrap();
 					}
 				}
