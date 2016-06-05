@@ -370,6 +370,7 @@
 			getBoxCloseOut().bind('click', hide);
 			getBoxOverlay().bind('click', overlayClick);
 			getBoxArrows().bind('click', overlayClick);
+			getBoxCloseOutHolder().bind('click', overlayClick);
 
 			// Window resize
 			
@@ -1188,14 +1189,14 @@
 		 */
 		function updateOverlayHeight() {
 			// Set overlay height
-			// We need in in case when you open overlay in the middle of tall page
+			// We need it in case when you open overlay in the middle of tall page
 
 			// Line with `$("html").prop("scrollHeight");` was commented because it does not work when
 			// html tag is not covering whole page, for example in case when doctype is <!DOCTYPE html>
 			// So had to switch to calculation based on window height
 			//var height = getScrollPos() + $("html").prop("scrollHeight");
 
-			var height = getScrollPos() + $(window).height();
+			var height = getScrollPos() + $(window).height() + getBodyAndHtmlExtraSpace().top;
 
 			getBoxOverlay().css('height', height + 'px');
 		}
