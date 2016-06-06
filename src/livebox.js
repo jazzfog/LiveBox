@@ -1,6 +1,6 @@
 ;(function ($) {
     $.fn.livebox = function(options, chainOptions) {
-		
+
 		//=========================================================================================================================================
 
 		/**
@@ -2093,6 +2093,9 @@
 		};
     };
 
+	$.livebox = $.fn.livebox.bind($.fn);
+	$.LiveBox = $.fn.livebox.bind($.fn);
+
 	//TODO Do it in right way, this is temporary solution
 	$.fn.livebox.hideAll = function () {
 		var hs = window.liveboxesHideFuncs;
@@ -2104,8 +2107,8 @@
 }(jQuery));
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 // Autorun
+
 jQuery(function () {
 
 	var $ = jQuery;
@@ -2181,7 +2184,6 @@ jQuery(function () {
 });
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 var liveBoxHtml = " \
 	<div class='liveboxOuter liveboxOuter_%ident%'>\
