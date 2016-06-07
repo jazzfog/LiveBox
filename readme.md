@@ -25,7 +25,7 @@ Simple HTML
 
     $(function () {
 
-        var handler = $.fn.livebox({
+        $.livebox({
             type: 'html',
             content: 'Hello, World!'
         });
@@ -35,8 +35,7 @@ Content from DOM element, reaction on event
 
     $(function () {
 
-        var handler = $.fn.livebox({
-            type: 'selector',
+        var handler = $.livebox({
             content: '#divWithContent',
             width: 500,
             height: 300,
