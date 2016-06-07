@@ -133,11 +133,13 @@
 .liveboxArrowLeft {
 	background-image: url("img/arrowLeft.png");
 	float: left;
+	margin-left: 20px;
 }
 
 .liveboxArrowRight {
 	background-image: url("img/arrowRight.png");
 	float: right;
+	margin-right: 20px;
 }
 
 .liveboxSpinner {

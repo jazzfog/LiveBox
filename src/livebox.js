@@ -1061,8 +1061,12 @@
 		}
 		
 		function posArrows() {
+
 			var box = getBoxArrows();
+			var extraSpace = getBodyAndHtmlExtraSpace();
+
 			box.css('top', getCoordCenterY() - (box.height() / 2));
+			box.css('left', 0 - extraSpace.left);
 		}
 
 		function getCoordCenterY() {
