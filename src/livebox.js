@@ -178,8 +178,10 @@
 
 			loaderShape: false,
 
-			headerNoHtml: true,
 			headerContent: '',
+			title: '',
+			headerNoHtml: true,
+
 			content: '',
 
 			noExtraUi: false,
@@ -478,7 +480,14 @@
 			var boxContent = getBoxContent();
 			var boxContentOuter = getBoxContentOuter();
 
+			//-------------------------------------------------------------
 			// Set lightbox header text
+
+			if (settings.title.length) {
+				settings.headerContent = settings.title;
+				settings.headerNoHtml = true;
+			}
+
 			if (settings.headerContent.length) {
 				if (settings.headerNoHtml) {
 					boxHeaderCont.text(settings.headerContent);
