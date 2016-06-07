@@ -23,28 +23,32 @@ If you do not use [bower](http://bower.io) you can [download files](https://gith
 
 Simple HTML
 
-    $(function () {
+```javascript
+$(function () {
 
-        $.livebox({
-            type: 'html',
-            content: 'Hello, World!'
-        });
+    $.livebox({
+        type: 'html',
+        content: 'Hello, World!'
     });
+});
+```
 
 Content from DOM element, reaction on event
 
-    $(function () {
+```javascript
+$(function () {
 
-        var handler = $.livebox({
-            content: '#divWithContent',
-            width: 500,
-            height: 300,
-            events: {
-                show: function () {
-                    console.log('Window is open')
-                }
+    var handler = $.livebox({
+        content: '#divWithContent',
+        width: 500,
+        height: 300,
+        events: {
+            show: function () {
+                console.log('Window is open')
             }
-        });
+        }
     });
+});
+```
 
 Real documentation and examples is on the go
