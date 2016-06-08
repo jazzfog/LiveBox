@@ -5,17 +5,11 @@
 		//=========================================================================================================================================
 
 		/**
-		 * Lightbox init configuration passed by user
+		 * Contains initial livebox configuration passed by user
+		 * This variable must remain read-only
 		 */
-		//var options;
+		// var options
 
-		/**
-		 * Variable stores original parameters passed to livebox at the moment of initialization
-		 * This variable must be read-only
-		 * @type {{}}
-		 */
-		var settingsRaw = $.extend({}, options);
-		
 		/**
 		 * Variable stores parameters of current livebox opened on the top level 
 		 * Propertis of this variable may be modified by the script, e.g. `.type = auto` may be changed to `.type = selector` etc.
@@ -578,12 +572,10 @@
 			//-------------------------------------------------------------
 
 			if (isChain()) {
-				// Apply common for all items in chain options
-				options = $.extend({}, chainCommonSettings, options);
+				settings = $.extend({}, defaults, chainCommonSettings, options);
+			} else {
+				settings = $.extend({}, defaults, options);
 			}
-
-			// Collect lightbox settings, defaults then user settings
-			settings = $.extend({}, defaults, options);
 
 			//-------------------------------------------------------------
 
@@ -625,7 +617,7 @@
 
 			if (settings.type == 'auto') {
 
-				var contentLine = (isChain() && typeof settingsRaw[chainedItemsIndex] === 'object') ? settingsRaw[chainedItemsIndex].content : settingsRaw.content;
+				var contentLine = (isChain() && typeof options[chainedItemsIndex] === 'object') ? options[chainedItemsIndex].content : options.content;
 				settings.type = detectType(contentLine);
 
 				if (settings.type === false) {
@@ -765,13 +757,13 @@
 				var el = $(img);
 
 				// If maximum height is set for image
-				if (parseInt(settingsRaw.width) && parseInt(settingsRaw.height)) {
-					var reSize = calcImageSize(img.width, img.height, parseInt(settingsRaw.width), parseInt(settingsRaw.height));
+				if (parseInt(options.width) && parseInt(options.height)) {
+					var reSize = calcImageSize(img.width, img.height, parseInt(options.width), parseInt(options.height));
 					imgRealWidth = reSize.width;
 					imgRealHeight = reSize.height;
 				} else {
 					
-					if (parseInt(settingsRaw.width) || parseInt(settingsRaw.height)) {
+					if (parseInt(options.width) || parseInt(options.height)) {
 						console.error('Parameters "width" and "height" for type "image" must be set both or none of them');
 					}
 					
@@ -800,7 +792,7 @@
 			ajaxObject = $.ajax({
 				type: 'get',
 				dataType: 'html',
-				url: settingsRaw.content,
+				url: options.content,
 				context: this,
 				data: {},
 				success: function (res) {
@@ -845,7 +837,7 @@
 			var iFrameTmp = $('<'+'iframe class="liveboxIframe" frameborder="no" framespacing="0" marginheight="0" marginwidth="0" allowtransparency="true" allowfullscreen></iframe>');
 			iFrameTmp.attr('width', 10);
 			iFrameTmp.attr('height', 10);
-			iFrameTmp.attr('src', settingsRaw.content);
+			iFrameTmp.attr('src', options.content);
 
 			var html = $('<div>').append(iFrameTmp.clone()).html();
 			html = '<div><div class="liveboxSpinner"></div>' + html + '</div>';
@@ -986,6 +978,8 @@
 			
 			//----------------------------------
 			// is it selector
+
+			//TODO Add regexp for early selector recognizing (id, class)
 			
 			if ($(contString).length) {
 				return 'selector';
@@ -1686,7 +1680,6 @@
 			//TODO Clone objects here, check funcs
 			var params = {
 				settings: settings,
-				settingsRaw: settingsRaw,
 				content: getBoxContent()
 			};
 			
