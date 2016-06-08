@@ -105,7 +105,8 @@
 		var selectorCache = {};
 
 		/**
-		 * Lightbox identifier among its siblings
+		 * Lightbox identifier among other instances
+		 * (Do not confuse with frameIdent - id of element of chain)
 		 * @type {string}
 		 */
 		var ident = getRandomStr(8);
@@ -318,11 +319,14 @@
 			chainedItemsIndex = 0;
 			
 			$.each(items, function (index, item) {
+
+				item.frameIdent = getRandomStr(8);
+
 				if (item.active) {
 					chainedItemsIndex = index;
 				}
 			});
-			
+
 			//----------------------------------------------------------
 			
 			if (typeof chainOptions === 'object') {
@@ -391,7 +395,7 @@
 			});
 			
 			//----------------------------------------------------------
-			
+
 			applyItemByIndex(chainedItemsIndex);
 			
 			// Prevent following link, eg a[href=#]
@@ -403,12 +407,16 @@
 		 * @param options
 		 */
 		function handleItem(options) {
+
+			if (settings.frameIdent) {
+				domContentSourceRevert();
+			}
 			
 			// Initialize item
 			applyOptions(options);
 			handleItemEvents();
 			handleDragNDrop();
-			
+
 			//----------------------------------------------------------
 			// Trigger proper events
 			
@@ -910,19 +918,21 @@
 		
 		function contHandlerSelector() {
 
+			var fid = settings.frameIdent;
+
 			// Find target elements on page
 			var el = $(settings.content);
 
 			// Wrap content with placeholder so we will be able to return it back on its original place when livebox is closed
 			// lbph - LiveBox Place Holder
-			var wrappingEl = $('<div>').css('display', 'none').attr('lbph', ident);
+			var wrappingEl = $('<div>').css('display', 'none').attr('lbph', fid);
 			el.wrap(wrappingEl);
 
 			// Take content out of its place and put in LiveBox content box
 			var detached = el.detach();
 
 			// Saving original content element and its display mode
-			var dEl = contentStorage[ident] = {
+			var dEl = contentStorage[fid] = {
 				el: detached,
 				display: detached.css('display')
 			};
@@ -1304,27 +1314,7 @@
 			var doClosingActions = function () {
 				
 				if (settings.type === 'selector') {
-
-					// Returning detached content back on its place
-
-					var elPlaceholder = $('[lbph=' + ident + ']');
-
-					var contentObj = contentStorage[ident];
-					var contentEl = (contentObj && contentObj.el) ? contentObj.el : null;
-
-					delete contentStorage[ident];
-
-					if (contentEl) {
-
-						//Reverting original display mode
-						contentEl.css('display', contentObj.display);
-
-						// Returning content element
-						elPlaceholder.append(contentEl);
-
-						// Removing placeholding wrapper
-						contentEl.unwrap();
-					}
+					domContentSourceRevert();
 				}
 
 				removeElemtnts(true);
@@ -1351,6 +1341,31 @@
 			
 			$(window).unbind('resize.livebox_'+ident);
 			$(window).unbind('keydown.livebox_'+ident);
+		}
+
+		/**
+		 * Returning detached content back on its place
+		 */
+		function domContentSourceRevert() {
+
+			var fid = settings.frameIdent;
+			var elPlaceholder = $('[lbph=' + fid + ']');
+			var contentObj = contentStorage[fid];
+			var contentEl = (contentObj && contentObj.el) ? contentObj.el : null;
+
+			delete contentStorage[fid];
+
+			if (contentEl) {
+
+				//Reverting original display mode
+				contentEl.css('display', contentObj.display);
+
+				// Returning content element
+				elPlaceholder.append(contentEl);
+
+				// Removing placeholding wrapper
+				contentEl.unwrap();
+			}
 		}
 		
 		function countOpenedBoxes() {
