@@ -1,19 +1,26 @@
 ;(function ($) {
-    $.fn.livebox = function(options, chainOptions) {
+
+	$.fn.livebox = function(options, chainOptions) {
 
 		//=========================================================================================================================================
 
 		/**
-		 * Variable stores original parameters set passed to livebox on the moment of initialization
-		 * This variable is read-only
+		 * Lightbox init configuration passed by user
+		 */
+		//var options;
+
+		/**
+		 * Variable stores original parameters passed to livebox at the moment of initialization
+		 * This variable must be read-only
 		 * @type {{}}
 		 */
 		var settingsRaw = $.extend({}, options);
 		
 		/**
 		 * Variable stores parameters of current livebox opened on the top level 
-		 * Propertis of this variable may be modified by the script, eg `type` = `auto` may be changed to `selector`.
-		 * settings <- defaults [<- common options] <- item settings <- this script runtime modifications
+		 * Propertis of this variable may be modified by the script, e.g. `.type = auto` may be changed to `.type = selector` etc.
+		 * Parameters merge priority
+		 * settings <- livebox defaults [<- common options] <- item settings <- this script runtime modifications
 		 * @type {{}}
 		 */
 		var settings = {};
@@ -501,7 +508,7 @@
 			//-------------------------------------------------------------
 			
 			var extraSpace = getBodyAndHtmlExtraSpace();
-			
+
 			boxOverlay.css({
 				'background-color': settings.overlayColor,
 				opacity: settings.opacity,
@@ -570,18 +577,23 @@
 			
 			//-------------------------------------------------------------
 
-			if (options.noExtraUi) {
-				options.headerHeight = 0;
-				options.shadow = false;
-				options.borderRadius = 0;
-				options.padding = 0;
+			if (isChain()) {
+				// Apply common for all items in chain options
+				options = $.extend({}, chainCommonSettings, options);
 			}
-			
-			//-------------------------------------------------------------
 
 			// Collect lightbox settings, defaults then user settings
 			settings = $.extend({}, defaults, options);
-			
+
+			//-------------------------------------------------------------
+
+			if (settings.noExtraUi) {
+				settings.headerHeight = 0;
+				settings.shadow = false;
+				settings.borderRadius = 0;
+				settings.padding = 0;
+			}
+
 			//-------------------------------------------------------------
 			
 			if (!isValidSize(settings.width)) {
@@ -1648,9 +1660,6 @@
 			
 			if (chainCommonSettings) {
 
-				// Apply common for all items in chain options
-				options = $.extend({}, chainCommonSettings, options);
-				
 				// Apply common for all items events
 				if (chainCommonSettings.events) {
 					eventsAdd(chainCommonSettings.events);
