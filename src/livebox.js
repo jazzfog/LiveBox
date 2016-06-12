@@ -630,7 +630,11 @@
 
 				if (settings.type === false) {
 					settings.type = 'html';
-					settings.content = liveBoxErrorMsg.replace('%content%', escape(settings.content));
+
+					var cnt = '' + settings.content;
+					cnt =  settings.content.substring(0, 50);
+
+					settings.content = liveBoxErrorMsg.replace('%content%', escape(cnt));
 					settings.padding = '10px';
 				}
 			}
@@ -990,11 +994,17 @@
 			// is it selector
 
 			//TODO Add regexp for early selector recognizing (id, class)
-			
-			if ($(contString).length) {
-				return 'selector';
+
+			try	{
+
+				if ($(contString).length) {
+					return 'selector';
+				}
+
+			} catch (e) {
+				// Selector failed
 			}
-			
+
 			//----------------------------------
 
 			return false;
