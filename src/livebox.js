@@ -150,7 +150,7 @@
 			opacity: 0.6,
 			
 			animation: true,
-			animationSpeed: 'fast',
+			animationDuration: 'fast',
 			
 			width: 500,
 			height: 'auto',
@@ -182,7 +182,7 @@
 
 			headerContent: '',
 			title: '',
-			headerNoHtml: true,
+			headerAllowHtml: false,
 
 			content: '',
 
@@ -191,7 +191,7 @@
 			// For type `selector`
 			// If content element is hidden (display=none) it will be shown
 			// and reverted back to `none` when window is hidden
-			autoShowContentBlock: true,
+			showContentBlock: true,
 			
 			contentScroll: true,
 
@@ -203,8 +203,6 @@
 
 			// Allow lightbox drag&drop (move) or not
 			draggable: true,
-
-			onOpen: null,
 
 			/**
 			 * For type `selector`:
@@ -494,14 +492,14 @@
 
 			if (settings.title.length) {
 				settings.headerContent = settings.title;
-				settings.headerNoHtml = true;
+				settings.headerAllowHtml = false;
 			}
 
 			if (settings.headerContent.length) {
-				if (settings.headerNoHtml) {
-					boxHeaderCont.text(settings.headerContent);
-				} else {
+				if (settings.headerAllowHtml) {
 					boxHeaderCont.html(settings.headerContent);
+				} else {
+					boxHeaderCont.text(settings.headerContent);
 				}
 			} else {
 				boxHeaderCont.html('&nbsp;');
@@ -685,14 +683,14 @@
 			
 			if (settings.animation) {
 				var opacity = boxOverlay.css('opacity');
-				boxOverlay.css({opacity: .01}).animate({opacity: opacity}, settings.animationSpeed);
+				boxOverlay.css({opacity: .01}).animate({opacity: opacity}, settings.animationDuration);
 			}
 			
 			boxOverlay.show();
 			boxFrame.show();
 			
 			if (settings.animation) {
-				boxFrame.css({opacity: .01}).animate({opacity: 1}, settings.animationSpeed);
+				boxFrame.css({opacity: .01}).animate({opacity: 1}, settings.animationDuration);
 			}
 			
 			scrollbarsHide();
@@ -728,7 +726,7 @@
 			
 			if (type == 'fadein') {
 
-				box.animate({opacity: 1}, settings.animationSpeed, function () {
+				box.animate({opacity: 1}, settings.animationDuration, function () {
 
 					if (callback) {
 						callback();
@@ -942,7 +940,7 @@
 			};
 
 			// Auto-show hidden content
-			if (dEl.display === 'none' && settings.autoShowContentBlock) {
+			if (dEl.display === 'none' && settings.showContentBlock) {
 				dEl.el.show();
 			}
 
@@ -1340,9 +1338,9 @@
 			
 			if (settings.animation && settings.type != 'youtube') {
 				
-				getBoxFrame().animate({opacity: 0}, settings.animationSpeed);
+				getBoxFrame().animate({opacity: 0}, settings.animationDuration);
 				
-				getBoxOverlay().animate({opacity: 0}, settings.animationSpeed, function () {
+				getBoxOverlay().animate({opacity: 0}, settings.animationDuration, function () {
 					doClosingActions();
 				});
 			} else {
