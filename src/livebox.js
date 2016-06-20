@@ -38,7 +38,7 @@
 
 		/**
 		 * Flag showing wether one of chained elements was already initiated or not
-		 * Needed for such things like event `beforefirstshow`.
+		 * Needed for such things like event `beforeFirstInChainShow`.
 		 * @type {boolean}
 		 */
 		var firstInitialized = false;
@@ -209,7 +209,12 @@
 			 * If true - dom elements will not be cloned, so changes to DOM elements will be preserved
 			 * (including filled out form fields)
 			 */
-			preserveChanges: false
+			preserveChanges: false,
+
+			customClass: {},
+
+			backgroundColor: '',
+			headerBackgroundColor: ''
 		};
 
 		/**
@@ -248,7 +253,7 @@
 			},
 			
 			keyDown: function (param) {
-				onKeyDown(param.event);
+				onKeyDown(param.args.event);
 			}
 		};
 		
@@ -418,22 +423,41 @@
 			//----------------------------------------------------------
 			// Trigger proper events
 			
-			// Only for first shown item
+			// Only for first shown item in a chain
 			if (!firstInitialized) {
 				firstInitialized = true;
 				
-				if (event('beforefirstshow') === false) {
+				if (event('beforeFirstInChainShow') === false) {
 					hide();
 					return;				
 				}
 			}
 
 			// Every time when item is about to show
-			if (event('beforeshow') === false) {
+			if (event('beforeShow') === false) {
 				hide();
 				return;				
 			}
-			
+
+			//----------------------------------------------------------
+			// Apply custom css class names
+
+			if (typeof settings.customClass === 'object') {
+				$.each(settings.customClass, function (lbClass, newClass) {
+					findMy('.' + lbClass).addClass(newClass);
+				});
+			}
+
+			//----------------------------------------------------------
+
+			if (settings.backgroundColor) {
+				getBoxContentOuter().css('background-color', settings.backgroundColor);
+			}
+
+			if (settings.headerBackgroundColor) {
+				getBoxHeader().css('background-color', settings.headerBackgroundColor);
+			}
+
 			//----------------------------------------------------------
 			
 			handleContent();
@@ -1302,7 +1326,7 @@
 			
 			//------------------------------------
 			
-			if (event('beforeclose') === false) {
+			if (event('beforeClose') === false) {
 				return;				
 			}
 			
@@ -1589,7 +1613,7 @@
 		
 		function resize(width, height, callback, disableAnimation) {
 			
-			if (event('beforeresize') === false) {
+			if (event('beforeResize') === false) {
 				return;				
 			}
 			
@@ -1701,12 +1725,15 @@
 			var cbResult;
 			
 			//TODO Clone objects here, check funcs
-			var params = {
+
+			var callbackParam = {
+				id: ident,
 				settings: settings,
-				content: getBoxContent()
+				content: getBoxContent(),
+				args: args
 			};
-			
-			var callbackParam = $.extend({}, args, params);
+
+			//console.log(callbackParam);
 			
 			$.each(eventsHolder[name], function(index, callback) {
 				if (typeof callback === 'function') {
@@ -1974,18 +2001,20 @@
 		
 		//----------------------------------------------------------------------------
 		// Public methods
-		
-		this.close = function () {
-			hide();
-		};
-		
-		this.center = function () {
-			posCenter();
-		};
 
-		this.resize = function (width, height, callback, disableAnimation) {
-			resize(width, height, callback, disableAnimation);
-		};
+		// No longer needed?
+
+		// this.close = function () {
+		// 	hide();
+		// };
+		//
+		// this.center = function () {
+		// 	posCenter();
+		// };
+		//
+		// this.resize = function (width, height, callback, disableAnimation) {
+		// 	resize(width, height, callback, disableAnimation);
+		// };
 
 		//----------------------------------------------------------------------------
 		// Utils
@@ -2124,14 +2153,38 @@
 		}
 		
 		//----------------------------------------------------------------------------
+		// Public methods
 		
 		return {
 			resize: resize,
-			hide: hide
+			hide: hide,
+			posCenter: posCenter,
+			getId: function () {
+				return ident;
+			},
+			setContent: function (cont) {
+
+				if (settings.type !== 'html' && settings.type !== 'text') {
+					return;
+				}
+
+				var animTmp = settings.animation;
+				settings.animation = false;
+
+				settings.content = cont;
+
+				handleContent();
+
+				settings.animation = animTmp;
+			}
 		};
+
+		//----------------------------------------------------------------------------
     };
 
+	// Shortcut lowercase
 	$.livebox = $.fn.livebox.bind($.fn);
+	// Shortcut uppercase
 	$.LiveBox = $.fn.livebox.bind($.fn);
 
 	//TODO Do it in right way, this is temporary solution
@@ -2224,7 +2277,7 @@ jQuery(function () {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 var liveBoxHtml = " \
-	<div class='liveboxOuter liveboxOuter_%ident%'>\
+	<div id='%ident%' class='liveboxOuter liveboxOuter_%ident%'>\
 		<div class='liveboxOverlay'></div> \
 		<div class='liveboxOuterCloseBtnHolder'>\
 			<div class='liveboxOuterCloseBtn'></div>\
