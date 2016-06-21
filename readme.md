@@ -4,14 +4,15 @@ Be aware of *beta* version
 
 ## Key features
 
-- Supports variety of content types, such as html, images, video, maps, iframe, ajax and others
+- Clear documentation full of editable demos
+- Supports variety of content types, such as html, images, video, iframe, ajax and others
 - Drag&drop and auto resize
-- Open one LiveBox on top of another
-- API for controlling livebox, including resizing and catching events
-- Chaining LiveBoxes with mixed content
+- Overlaying LiveBoxes (open one on top of another)
+- API for controlling LiveBox, including resizing and catching events
+- Chaining content (slideshow) including mixed content
 - Image preloading
 - Highly customizable look
-- Ability to preserve event handlers when you use hidden element on page as source for LiveBox html content
+- JavaScript knowledge not required
 
 #### Install
 
@@ -38,7 +39,7 @@ Content from DOM element, reaction on event
 ```javascript
 $(function () {
 
-    var handler = $.livebox({
+    $.livebox({
         content: '#divWithContent',
         width: 500,
         height: 300,
@@ -51,4 +52,4 @@ $(function () {
 });
 ```
 
-Real documentation and examples is on the go
+Full documentation and demos on website - [liveboxjs.com](http://liveboxjs.com)
