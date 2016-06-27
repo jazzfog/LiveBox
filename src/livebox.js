@@ -964,7 +964,7 @@
 			};
 
 			// Auto-show hidden content
-			if (dEl.display === 'none' && settings.showContentBlock) {
+			if (dEl.el.is(':visible') === false && settings.showContentBlock) {
 				dEl.el.show();
 			}
 
