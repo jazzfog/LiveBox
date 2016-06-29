@@ -2164,18 +2164,24 @@
 			},
 			setContent: function (cont) {
 
-				if (settings.type !== 'html' && settings.type !== 'text') {
-					return;
+				var box = getBoxContent();
+
+				if (settings.type === 'html') {
+					box.html(cont);
+				} else if (settings.type === 'text') {
+					box.text(cont);
+				} else {
+					console.error('This function does not support box type - ' + settings.type);
 				}
 
-				var animTmp = settings.animation;
-				settings.animation = false;
-
-				settings.content = cont;
-
-				handleContent();
-
-				settings.animation = animTmp;
+				// var animTmp = settings.animation;
+				// settings.animation = false;
+				//
+				// settings.content = cont;
+				//
+				// handleContent();
+				//
+				// settings.animation = animTmp;
 			}
 		};
 
