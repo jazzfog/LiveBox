@@ -1044,19 +1044,34 @@
 			var maxHeight = isHeightAuto() ? $(window).height() - getExtraHeight() - padding : 'none';
 			getBoxContentOuter().css('max-height', maxHeight);
 		}
-		
-		function posCenter() {
-			
+
+		/**
+		 * Put LiveBox in the center of the screen
+		 * @param mode - 1 - vertical only, 2 - horizontal only, no value - both
+		 */
+		function posCenter(mode) {
+
 			updateMaxLightboxHeight();
 
 			var boxFrame = getBoxFrame();
 			
 			var pos = calculateBoxPos(boxFrame.width(), boxFrame.height());
 
-			boxFrame.css({
-				left: pos.left,
-				top: pos.top
-			});
+			//-------------
+
+			var params = {};
+
+			if (!mode || mode === 1) {
+				params.top = pos.top;
+			}
+
+			if (!mode || mode === 2) {
+				params.left = pos.left;
+			}
+
+			//-------------
+
+			boxFrame.css(params);
 
 			getBoxHeader().css({
 				width: getBoxContentOuter().width()
@@ -2168,8 +2183,10 @@
 
 				if (settings.type === 'html') {
 					box.html(cont);
+					posCenter(1);
 				} else if (settings.type === 'text') {
 					box.text(cont);
+					posCenter(1);
 				} else {
 					console.error('This function does not support box type - ' + settings.type);
 				}
