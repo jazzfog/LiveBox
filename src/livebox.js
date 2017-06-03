@@ -1,3 +1,14 @@
+if (typeof jQuery !== 'function') {
+
+	if (typeof require === 'function') {
+		var jQuery = require('jquery');
+	}
+
+	if (typeof jQuery !== 'function') {
+		console.error('Unable to resolve dependency: jQuery');
+	}
+}
+
 ;(function ($) {
 
 	$.fn.livebox = function(options, chainOptions) {
@@ -286,7 +297,8 @@
 					handleItems(options, chainOptions);
 				});
 				
-			} else if (!el.length && !el.selector.length) {
+			} else if (!el.length && (!el.selector || !el.selector.length)) {
+
 
 				// For case of direct usage: $.fn.livebox({...});
 				// including usage `class="livebox"`, because it eventually calls $.fn.livebox({...})
@@ -2235,7 +2247,9 @@ jQuery(function () {
 		$(linksSelector).live('click', onElementClick);
 	}
 
-	function onElementClick() {
+	function onElementClick(e) {
+
+		e.preventDefault();
 
 		var el = $(this);
 		
@@ -2276,8 +2290,6 @@ jQuery(function () {
 		}
 
 		$.fn.livebox(options);
-		
-		return false;
 	}
 	
 	function extractOptions(el) {

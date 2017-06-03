@@ -1,0 +1,28 @@
+{
+  "name": "livebox",
+  "version": "0.1.0",
+  "description": "Livebox - a jQuery lightbox plugin",
+  "main": "livebox.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://jazzfog@github.com/jazzfog/livebox.git"
+  },
+  "keywords": [
+    "lightbox",
+    "livebox",
+    "jquery",
+    "plugin",
+    "popup",
+    "messagebox",
+    "dialog"
+  ],
+  "author": "Pavel Pushkaryov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jazzfog/livebox/issues"
+  },
+  "homepage": "https://github.com/jazzfog/livebox#readme"
+}
