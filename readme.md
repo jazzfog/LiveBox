@@ -1,4 +1,4 @@
-# LiveBox - A jQuery Lightbox Plugin
+# LiveBox - A React Lightbox Component
 
 React port of LiveBox...
 
