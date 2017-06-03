@@ -1,6 +1,6 @@
 {
   "name": "livebox",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Livebox - a jQuery lightbox plugin",
   "main": "livebox.js",
   "scripts": {
