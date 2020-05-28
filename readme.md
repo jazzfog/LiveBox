@@ -1,6 +1,6 @@
-# LiveBox - A jQuery Lightbox Plugin
+# (Deprecated) LiveBox - A jQuery Lightbox Plugin
 
-Be aware of *beta* version
+**Warning: The project is deprecated, use at your wown risk**
 
 ## Key features
 
